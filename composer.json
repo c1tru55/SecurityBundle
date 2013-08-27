@@ -1,8 +1,8 @@
 {
-    "name": "ite/doctrine-bundle",
+    "name": "ite/security-bundle",
     "type": "symfony-bundle",
-    "description": "ITEDoctrineBundle",
-    "keywords": ["js"],
+    "description": "ITESecurityBundle",
+    "keywords": ["security"],
     "license": "MIT",
     "authors": [
         {
@@ -17,8 +17,8 @@
     },
     "autoload": {
         "psr-0": {
-            "ITE\\DoctrineBundle": ""
+            "ITE\\SecurityBundle": ""
         }
     },
-    "target-dir": "ITE/DoctrineBundle"
+    "target-dir": "ITE/SecurityBundle"
 }

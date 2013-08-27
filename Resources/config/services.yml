@@ -1,0 +1,14 @@
+parameters:
+    ite_security.permission_listener.class:               ITE\SecurityBundle\EventListener\PermissionListener
+    ite_security.permission_manager.class:                ITE\SecurityBundle\Service\PermissionManager
+
+services:
+    ite_security.permission_listener:
+        class:                                              %ite_security.permission_listener.class%
+        arguments: [ @annotation_reader, @ite_security.permission_manager ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    ite_security.permission_manager:
+        class:                                              %ite_security.permission_manager.class%
+        arguments: [ @security.context, @doctrine.orm.entity_manager ]
