@@ -1,6 +1,7 @@
 parameters:
     ite_security.permission_listener.class:               ITE\SecurityBundle\EventListener\PermissionListener
     ite_security.permission_manager.class:                ITE\SecurityBundle\Service\PermissionManager
+    security.context.class:                               ITE\SecurityBundle\Core\SecurityContext
 
 services:
     ite_security.permission_listener:
