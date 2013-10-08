@@ -15,7 +15,7 @@ services:
 
     ite_security.permission_manager:
         class:                                              %ite_security.permission_manager.class%
-        arguments: [ @security.context, @ite_security.role_permission_mapper ]
+        arguments: [ @ite_security.role_permission_mapper, @security.context ]
 
     ite_security.role_permission_mapper:
         class:                                              %ite_security.role_permission_mapper.class%
