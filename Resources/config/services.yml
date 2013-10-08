@@ -1,6 +1,9 @@
 parameters:
     ite_security.permission_listener.class:               ITE\SecurityBundle\EventListener\PermissionListener
     ite_security.permission_manager.class:                ITE\SecurityBundle\Service\PermissionManager
+    ite_security.role_permission_mapper.class:            ITE\SecurityBundle\Service\RolePermissionMapper
+    ite_security.permission_cache_warmer.class:           ITE\SecurityBundle\CacheWarmer\PermissionCacheWarmer
+    ite_security.cache_dir:                               %kernel.cache_dir%/ite_security
     security.context.class:                               ITE\SecurityBundle\Core\SecurityContext
 
 services:
@@ -12,4 +15,14 @@ services:
 
     ite_security.permission_manager:
         class:                                              %ite_security.permission_manager.class%
-        arguments: [ @security.context, @doctrine.orm.entity_manager ]
+        arguments: [ @security.context, @ite_security.role_permission_mapper ]
+
+    ite_security.role_permission_mapper:
+        class:                                              %ite_security.role_permission_mapper.class%
+        arguments: [ @doctrine.orm.entity_manager, %ite_security.cache_dir% ]
+
+    ite_security.permission_cache_warmer:
+        class:                                              %ite_security.permission_cache_warmer.class%
+        arguments: [ @ite_security.role_permission_mapper ]
+        tags:
+            - { name: kernel.cache_warmer }

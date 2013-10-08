@@ -2,30 +2,33 @@
 
 namespace ITE\SecurityBundle\Service;
 
-use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use ITE\SecurityBundle\Core\SecurityContextInterface;
 
+/**
+ * Class PermissionManager
+ * @package ITE\SecurityBundle\Service
+ */
 class PermissionManager implements PermissionManagerInterface
 {
+    /**
+     * @var RolePermissionMapperInterface
+     */
+    protected $rolePermissionMapper;
+
     /**
      * @var SecurityContextInterface
      */
     protected $securityContext;
 
     /**
-     * @var EntityManager
-     */
-    protected $em;
-
-    /**
+     * @param RolePermissionMapperInterface $rolePermissionMapper
      * @param SecurityContextInterface $securityContext
-     * @param EntityManager $em
      */
-    public function __construct(SecurityContextInterface $securityContext, EntityManager $em)
+    public function __construct(RolePermissionMapperInterface $rolePermissionMapper, SecurityContextInterface $securityContext)
     {
+        $this->rolePermissionMapper = $rolePermissionMapper;
         $this->securityContext = $securityContext;
-        $this->em = $em;
     }
 
     /**
@@ -38,9 +41,9 @@ class PermissionManager implements PermissionManagerInterface
         $user = $this->securityContext->getUser();
         $userRoles = $user->getRoles();
 
-        $userPermissions = $this->em->getRepository('ITESecurityBundle:Permission')
-            ->findPermissionsByRoles($userRoles);
+        $userPermissions = $this->rolePermissionMapper->getPermissionsByRoles($userRoles);
 
         return count(array_intersect($permissions, $userPermissions)) === count($permissions);
     }
+
 }

@@ -8,6 +8,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use ITE\SecurityBundle\Entity\Role;
 
+/**
+ * Class UpdateRolesCommand
+ * @package ITE\SecurityBundle\Command
+ */
 class UpdateRolesCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -43,6 +47,7 @@ class UpdateRolesCommand extends ContainerAwareCommand
         $removedRoles = array_diff(array_keys($dbRoles), $confRoles);
         $output->writeln(sprintf('There are %d removed roles.', count($removedRoles)));
 
+        // add new roles
         foreach ($newRoles as $roleName) {
             $role = new Role();
             $role->setName($roleName);
@@ -50,6 +55,7 @@ class UpdateRolesCommand extends ContainerAwareCommand
             $em->persist($role);
         }
 
+        // remove roles
         foreach ($removedRoles as $roleName) {
             $em->remove($dbRoles[$roleName]);
         }

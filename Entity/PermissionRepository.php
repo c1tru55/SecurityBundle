@@ -27,9 +27,10 @@ class PermissionRepository extends EntityRepository
             ))
             ->getResult();
 
-        return array_map(function($value) {
+        return array_unique(array_map(function($value) {
             return $value['permission'];
-        }, $permissions);
+        }, $permissions));
+
     }
 
     /**

@@ -8,6 +8,10 @@ use ITE\SecurityBundle\Service\PermissionManagerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+/**
+ * Class PermissionListener
+ * @package ITE\SecurityBundle\EventListener
+ */
 class PermissionListener
 {
     /**

@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 class SecurityContext extends BaseSecurityContext implements SecurityContextInterface
 {
     /**
-     * @return AdvancedUserInterface
+     * @return AdvancedUserInterface|null
      */
     public function getUser()
     {

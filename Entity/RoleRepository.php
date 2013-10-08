@@ -34,4 +34,17 @@ class RoleRepository extends EntityRepository
         ')
             ->getResult();
     }
+
+    /**
+     * @return array
+     */
+    public function findAllJoinedWithPermissionsIndexedByName()
+    {
+        return $this->_em->createQueryBuilder()
+          ->select('r, p')
+          ->from('ITESecurityBundle:Role', 'r', 'r.name')
+          ->leftJoin('r.permissions', 'p')
+          ->getQuery()
+          ->getResult();
+    }
 }

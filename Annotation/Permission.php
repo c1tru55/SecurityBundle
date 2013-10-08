@@ -9,8 +9,14 @@ use InvalidArgumentException;
  */
 class Permission
 {
+    /**
+     * @var array
+     */
     protected $permissions = array();
 
+    /**
+     * @param array $values
+     */
     public function __construct(array $values)
     {
         if (isset($values['value'])) {

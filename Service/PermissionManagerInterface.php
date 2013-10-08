@@ -10,7 +10,7 @@ interface PermissionManagerInterface
 {
     /**
      * @param array $permissions
-     * @return mixed
+     * @return bool
      */
     public function hasPermissions(array $permissions);
 }
