@@ -16,7 +16,7 @@ class SecurityContext extends BaseSecurityContext implements SecurityContextInte
      */
     public function getUser()
     {
-        if ($token = $this->getToken()) {
+        if (null !== $token = $this->getToken()) {
             if (is_object($user = $token->getUser())) {
                 return $user;
             }
@@ -41,6 +41,9 @@ class SecurityContext extends BaseSecurityContext implements SecurityContextInte
      */
     public function isAnonymous()
     {
+        if (null === $this->getToken()) {
+            return true;
+        }
         return $this->isGranted('IS_AUTHENTICATED_ANONYMOUSLY');
     }
 
@@ -49,6 +52,9 @@ class SecurityContext extends BaseSecurityContext implements SecurityContextInte
      */
     public function isAuthenticated()
     {
+        if (null === $this->getToken()) {
+            return false;
+        }
         return $this->isGranted('IS_AUTHENTICATED_REMEMBERED');
     }
 
@@ -57,6 +63,9 @@ class SecurityContext extends BaseSecurityContext implements SecurityContextInte
      */
     public function isFullyAuthenticated()
     {
+        if (null === $this->getToken()) {
+            return false;
+        }
         return $this->isGranted('IS_AUTHENTICATED_FULLY');
     }
 }
